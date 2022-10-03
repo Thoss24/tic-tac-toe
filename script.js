@@ -6,6 +6,22 @@ let gameBoard = (function() {
         board: [],
     };
 
+    let playerChoice = {
+        getChoice() {
+            return this.choice;
+        },
+    };
+    
+    // Players, factory-function
+    function players(choice) {
+       let player = Object.create(playerChoice);
+       player.choice = choice;
+       return player
+    };
+
+    let playerX = players('X');
+    let playerO = players('O');
+
     // create tic-tac-toe board & append "X" or "O" on click event
     function createBoard() {
 
@@ -16,16 +32,17 @@ let gameBoard = (function() {
             boardSquare.style.border = '1px solid black'
             board.style.gridTemplateColumns = `repeat(3, 1fr)`;
             board.style.gridTemplateRows = `repeat(3, 1fr)`;
-    
+
             boardSquare.addEventListener('click', () => {
-                boardSquare.textContent = 'X';
-                ticTacToeBoard.board.push(boardSquare.textContent)
-            });
-    
+                boardSquare.textContent = playerX.getChoice();
+            })
+        
             board.appendChild(boardSquare)
         };
     }
-    createBoard()
+    createBoard();
+
+
     
     return {
         ticTacToeBoard: ticTacToeBoard
@@ -34,10 +51,6 @@ let gameBoard = (function() {
 })();
 
 
-// Players, factory-function
-const Player = (player) => {
-
-}
 
 
 
