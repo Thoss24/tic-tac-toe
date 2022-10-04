@@ -12,14 +12,14 @@ function Players(choice) {
 const gameBoard = (function() {
     'use strict'
 
-    let ticTacToeBoard = ["X1", "X2", "X3", "O4", "O5", "O6", "X7", "X8", "X9"];
+    let ticTacToeBoard = ["", "", "", "", "", "", "", "", ""];
 
     const setBoardChoice = (boardIndex, choice) => {
         ticTacToeBoard[boardIndex] = choice
     }
 
     return {
-        setBoardChoice
+        setBoardChoice,
     }
 })();
 
@@ -42,7 +42,7 @@ const gameFlow = (() => {
 
     const gameTurn = (boardPosition) => {
         gameBoard.setBoardChoice(boardPosition, getPlayerChoice());
-        console.log(getPlayerChoice(), boardPosition)
+        console.log(getPlayerChoice(), boardPosition.id);
     }
     
     
