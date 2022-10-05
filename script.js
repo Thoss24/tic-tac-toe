@@ -8,7 +8,6 @@ function Players(choice) {
    return { getChoice }
 };
 
-
 const gameBoard = (function() {
     'use strict'
 
@@ -17,24 +16,31 @@ const gameBoard = (function() {
     const setBoardChoice = (boardIndex, choice) => {
         if (boardIndex > ticTacToeBoard.length) return;
         ticTacToeBoard[boardIndex] = choice
-    }
+    };
 
     const getBoardChoice = (boardIndex) => {
         if (boardIndex > ticTacToeBoard.length) return;
         return ticTacToeBoard[boardIndex]
-    }
+    };
+
+    const resetBoardChoice = () => {
+        for (let i = 0; i < ticTacToeBoard.length; i++) {
+            ticTacToeBoard[i] = ""
+        }
+    };
 
     return {
         setBoardChoice,
-        getBoardChoice
+        getBoardChoice,
+        resetBoardChoice
     }
 })();
 
 const displayController = (() => {
 
-    let boardSquare = document.querySelectorAll('.board-square');
+    const boardSquare = document.querySelectorAll('.board-square');
     boardSquare.forEach((square) => square.addEventListener('click', (e) => {
-        gameFlow.gameTurn(parseInt(e.target.id));
+        gameFlow.gameTurn(e.target.id);
         displayBoardChoice()
     }));
 
@@ -42,7 +48,15 @@ const displayController = (() => {
         for (let i = 0; i < boardSquare.length; i++) {
             boardSquare[i].textContent = gameBoard.getBoardChoice(i)
         }
-    }
+    };
+
+    const resetButton = document.getElementById('reset-button');
+        resetButton.addEventListener('click', () => {
+            gameBoard.resetBoardChoice(),
+            displayBoardChoice()
+        }
+        
+    )
     
     return {
         displayBoardChoice
@@ -53,8 +67,6 @@ const displayController = (() => {
 const gameFlow = (() => {
     const playerX = Players('X');
     const playerO = Players('O');
-
-    
 
     const gameTurn = (boardPosition) => {
         gameBoard.setBoardChoice(boardPosition, getPlayerChoice());
