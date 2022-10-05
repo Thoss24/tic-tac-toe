@@ -1,5 +1,5 @@
 html {
-    min-height: 100%;
+    min-height: 100vh;
 }
 
 *, *::after, *::before {
@@ -8,6 +8,37 @@ html {
     margin: 0;
 }
 
+/* header content area */
+header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 10vh;
+}
+
+/* main content area */
+main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+#reset-button {
+    display: flex;
+    align-items: center;
+    padding: 8px;
+    font-size: 20px;
+    border-radius: 15px;
+    border: none;
+    background: white;
+    cursor: pointer;
+}
+
+#reset-button:hover {
+    background-color: lightgray;
+}
 
 #board-container {
     display: grid;
@@ -25,5 +56,6 @@ html {
     height: 150px;
     border: 1px solid black;
     font-size: 30px;
+    cursor: pointer;
 }
 
