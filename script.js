@@ -40,13 +40,14 @@ const displayController = (() => {
 
     const boardSquare = document.querySelectorAll('.board-square');
     boardSquare.forEach((square) => square.addEventListener('click', (e) => {
+        if (e.target.textContent !== "") return;
         gameFlow.gameTurn(e.target.id);
         displayBoardChoice()
     }));
 
     const displayBoardChoice = () => {
         for (let i = 0; i < boardSquare.length; i++) {
-            boardSquare[i].textContent = gameBoard.getBoardChoice(i)
+            boardSquare[i].textContent = gameBoard.getBoardChoice(i);
         }
     };
 
@@ -59,7 +60,8 @@ const displayController = (() => {
     )
     
     return {
-        displayBoardChoice
+        displayBoardChoice,
+        boardSquare,
     }
 })();
 
@@ -67,16 +69,16 @@ const displayController = (() => {
 const gameFlow = (() => {
     const playerX = Players('X');
     const playerO = Players('O');
-    let round = 1;
+    let userTurn = 1;
 
     const gameTurn = (boardPosition) => {
         gameBoard.setBoardChoice(boardPosition, getPlayerChoice());
-        console.log(getPlayerChoice(), boardPosition.id);
-        round ++;
+        
+        userTurn ++;
     }
     
     const getPlayerChoice = () => {
-        return round % 2 === 1 ? playerX.getChoice() : playerO.getChoice();
+        return userTurn % 2 === 1 ? playerX.getChoice() : playerO.getChoice();
     }
 
     return {
