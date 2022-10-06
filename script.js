@@ -55,16 +55,18 @@ const displayController = (() => {
     const resetButton = document.getElementById('reset-button');
         resetButton.addEventListener('click', () => {
             gameBoard.resetBoardChoice(),
+            gameFlow.resetTurn(),
+            gameFlow.roundAnnounce.textContent = "Player X's Turn",
             displayBoardChoice()
+        })
+
+        return {
+            displayBoardChoice,
+            boardSquare,
         }
-        
-    )
+    })
     
-    return {
-        displayBoardChoice,
-        boardSquare,
-    }
-})();
+    ();
 
 
 const gameFlow = (() => {
@@ -84,22 +86,27 @@ const gameFlow = (() => {
     let roundAnnounce = document.getElementById('round-announce');
     let announceRound = () => {
         if (userTurn % 2 === 1) {
-            roundAnnounce.textContent = "X";
+            roundAnnounce.textContent = "Player X's Turn";
         } else {
-            roundAnnounce.textContent = "O"
+            roundAnnounce.textContent = "Player O's Turn"
         }
     }
     announceRound()
-    
+
+    const resetTurn = () => {
+        userTurn = 1
+    }
+
 
     return {
         gameTurn, 
         getPlayerChoice, 
-        announceRound
+        announceRound,
+        resetTurn, 
+        roundAnnounce
     }
 
 })();
-
 
 
 
