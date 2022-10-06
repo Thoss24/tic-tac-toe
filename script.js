@@ -67,14 +67,16 @@ const displayController = (() => {
 const gameFlow = (() => {
     const playerX = Players('X');
     const playerO = Players('O');
+    let round = 1;
 
     const gameTurn = (boardPosition) => {
         gameBoard.setBoardChoice(boardPosition, getPlayerChoice());
         console.log(getPlayerChoice(), boardPosition.id);
+        round ++;
     }
     
     const getPlayerChoice = () => {
-        return playerX.getChoice()
+        return round % 2 === 1 ? playerX.getChoice() : playerO.getChoice();
     }
 
     return {
