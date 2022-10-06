@@ -42,7 +42,8 @@ const displayController = (() => {
     boardSquare.forEach((square) => square.addEventListener('click', (e) => {
         if (e.target.textContent !== "") return;
         gameFlow.gameTurn(e.target.id);
-        displayBoardChoice()
+        displayBoardChoice();
+        gameFlow.announceRound()
     }));
 
     const displayBoardChoice = () => {
@@ -73,7 +74,6 @@ const gameFlow = (() => {
 
     const gameTurn = (boardPosition) => {
         gameBoard.setBoardChoice(boardPosition, getPlayerChoice());
-        
         userTurn ++;
     }
     
@@ -81,9 +81,21 @@ const gameFlow = (() => {
         return userTurn % 2 === 1 ? playerX.getChoice() : playerO.getChoice();
     }
 
+    let roundAnnounce = document.getElementById('round-announce');
+    let announceRound = () => {
+        if (userTurn % 2 === 1) {
+            roundAnnounce.textContent = "X";
+        } else {
+            roundAnnounce.textContent = "O"
+        }
+    }
+    announceRound()
+    
+
     return {
         gameTurn, 
-        getPlayerChoice
+        getPlayerChoice, 
+        announceRound
     }
 
 })();
