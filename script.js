@@ -76,6 +76,10 @@ const gameFlow = (() => {
 
     const gameTurn = (boardPosition) => {
         gameBoard.setBoardChoice(boardPosition, getPlayerChoice());
+        if (gameOutcome(boardPosition)) {
+            alert("You win")
+            
+        }
         userTurn ++;
     }
     
@@ -97,21 +101,23 @@ const gameFlow = (() => {
         userTurn = 1
     }
 
-    const gameOutcome = (boardIndex) => {
+    const gameOutcome = (field) => {
     
     let winCondition = [
-        [0, 1, 2],
-        [0, 3, 6],
-        [0, 4, 8],
-        [2, 4, 6],
-        [3, 4, 5],
-        [6, 7, 8],
-        [1, 4, 7],
-        [2, 5, 8]
-    ]
-    
+        ["0", "1", "2"],
+        ["0", "3", "6"],
+        ["0", "4", "8"],
+        ["2", "4", "6"],
+        ["3", "4", "5"],
+        ["6", "7", "8"],
+        ["1", "4", "7"],
+        ["2", "5", "8"]
+    ];
 
-    }
+    return winCondition.filter((combo) => combo.includes(field)).some((possCombo) => possCombo.every((boardIndex) => gameBoard.getBoardChoice(boardIndex) === getPlayerChoice()))
+     
+
+    };
     gameOutcome()
 
     return {
