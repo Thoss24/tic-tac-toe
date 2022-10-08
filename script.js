@@ -38,8 +38,10 @@ const gameBoard = (function() {
 })();
 
 const displayController = (() => {
-
     const boardSquare = document.querySelectorAll('.board-square');
+    const resetButton = document.getElementById('reset-button');
+    let showWinner = document.getElementById('announce-winner');
+
     boardSquare.forEach((square) => square.addEventListener('click', (e) => {
         if (e.target.textContent !== "") return;
         gameFlow.gameTurn(e.target.id);
@@ -53,7 +55,6 @@ const displayController = (() => {
         }
     };
 
-    const resetButton = document.getElementById('reset-button');
         resetButton.addEventListener('click', () => {
             gameBoard.resetBoardChoice(),
             gameFlow.resetTurn(),
@@ -66,7 +67,6 @@ const displayController = (() => {
         displayWinner(`Player ${gameWinner} won the game!`)
     }
 
-    let showWinner = document.getElementById('announce-winner');
     let displayWinner = (winnerMsg) => {
         showWinner.textContent = winnerMsg;
         showWinner.style.display = "flex";
@@ -79,7 +79,7 @@ const displayController = (() => {
             displayWinner
         }
     })
-    
+
     ();
 
 const gameFlow = (() => {
