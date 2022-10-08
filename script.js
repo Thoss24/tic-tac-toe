@@ -58,12 +58,25 @@ const displayController = (() => {
             gameBoard.resetBoardChoice(),
             gameFlow.resetTurn(),
             gameFlow.roundAnnounce.textContent = "Player X's Turn",
-            displayBoardChoice()
-        })
+            displayBoardChoice(),
+            showWinner.style.display = "none";
+        });
+
+    let announceWinner = (gameWinner) => {
+        displayWinner(`Player ${gameWinner} won the game!`)
+    }
+
+    let showWinner = document.getElementById('announce-winner');
+    let displayWinner = (winnerMsg) => {
+        showWinner.textContent = winnerMsg;
+        showWinner.style.display = "flex";
+    }
 
         return {
             displayBoardChoice,
             boardSquare,
+            announceWinner,
+            displayWinner
         }
     })
     
@@ -77,8 +90,7 @@ const gameFlow = (() => {
     const gameTurn = (boardPosition) => {
         gameBoard.setBoardChoice(boardPosition, getPlayerChoice());
         if (gameOutcome(boardPosition)) {
-            alert("You win")
-            
+            displayController.announceWinner(getPlayerChoice())
         }
         userTurn ++;
     }
@@ -115,7 +127,11 @@ const gameFlow = (() => {
     ];
 
     return winCondition.filter((combo) => combo.includes(field)).some((possCombo) => possCombo.every((boardIndex) => gameBoard.getBoardChoice(boardIndex) === getPlayerChoice()))
-     
+
+    // This code uses .filter() to create a copy of the WinCondition array filtered down to just the elements that match the code that follows.
+    // which further uses the .includes() method which determines wether the given array (winCondition) includes a certain value in it's entries.
+    // furthermore, the .some() method was used to test wether at least one element in the (winCondition) array passes the test provided by .filter().includes().
+    // next, the .every() method was used to test wether all of the elements in the (winCondition) array pass the tests provided by .filter.includes().some().
 
     };
     gameOutcome()
