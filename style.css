@@ -30,6 +30,7 @@ main {
     justify-content: center;
     align-items: center;
     padding: 20px;
+    font-size: 30px;
 }
 
 #reset-button {
