@@ -43,7 +43,7 @@ const displayController = (() => {
     let showWinner = document.getElementById('announce-winner');
 
     boardSquare.forEach((square) => square.addEventListener('click', (e) => {
-        if (e.target.textContent !== "") return;
+        if (gameFlow.stopGame()) return;
         gameFlow.gameTurn(e.target.id);
         displayBoardChoice();
         gameFlow.announceRound()
@@ -52,7 +52,7 @@ const displayController = (() => {
     const displayBoardChoice = () => {
         for (let i = 0; i < boardSquare.length; i++) {
             boardSquare[i].textContent = gameBoard.getBoardChoice(i);
-        }
+            }
     };
 
         resetButton.addEventListener('click', () => {
@@ -60,16 +60,15 @@ const displayController = (() => {
             gameFlow.resetTurn(),
             gameFlow.roundAnnounce.textContent = "Player X's Turn",
             displayBoardChoice(),
-            showWinner.style.display = "none";
+            showWinner.textContent = ""
         });
 
     let announceWinner = (gameWinner) => {
-        displayWinner(`Player ${gameWinner} won the game!`)
+        displayWinner(`Player ${gameWinner} won the game!`);
     }
 
     let displayWinner = (winnerMsg) => {
         showWinner.textContent = winnerMsg;
-        showWinner.style.display = "flex";
     }
 
         return {
@@ -86,18 +85,20 @@ const gameFlow = (() => {
     const playerX = Players('X');
     const playerO = Players('O');
     let userTurn = 1;
+    let gameOver = false;
 
     const gameTurn = (boardPosition) => {
         gameBoard.setBoardChoice(boardPosition, getPlayerChoice());
         if (gameOutcome(boardPosition)) {
-            displayController.announceWinner(getPlayerChoice())
+            displayController.announceWinner(getPlayerChoice());
+            gameOver = true;
         }
         userTurn ++;
-    }
+    };
     
     const getPlayerChoice = () => {
         return userTurn % 2 === 1 ? playerX.getChoice() : playerO.getChoice();
-    }
+    };
 
     let roundAnnounce = document.getElementById('round-announce');
     let announceRound = () => {
@@ -110,7 +111,12 @@ const gameFlow = (() => {
     announceRound()
 
     const resetTurn = () => {
-        userTurn = 1
+        userTurn = 1;
+        gameOver = false;
+    };
+
+    const stopGame = () => {
+        return gameOver
     }
 
     const gameOutcome = (field) => {
@@ -142,7 +148,8 @@ const gameFlow = (() => {
         announceRound,
         resetTurn, 
         gameOutcome,
-        roundAnnounce
+        roundAnnounce,
+        stopGame,
     }
 
 })();
