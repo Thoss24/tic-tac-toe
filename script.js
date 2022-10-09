@@ -43,7 +43,7 @@ const displayController = (() => {
     let showWinner = document.getElementById('announce-winner');
 
     boardSquare.forEach((square) => square.addEventListener('click', (e) => {
-        if (gameFlow.stopGame()) return;
+        if (gameFlow.stopGame()) return; // here we are simply preventing any further code executing if the condition inside the stopGame() function is true, resulting in no events being added to squares on board and no text being appended.
         gameFlow.gameTurn(e.target.id);
         displayBoardChoice();
         gameFlow.announceRound()
