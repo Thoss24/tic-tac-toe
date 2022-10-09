@@ -46,7 +46,9 @@ const displayController = (() => {
         if (gameFlow.stopGame()) return; // here we are simply preventing any further code executing if the condition inside the stopGame() function is true, resulting in no events being added to squares on board and no text being appended.
         gameFlow.gameTurn(e.target.id);
         displayBoardChoice();
-        gameFlow.announceRound()
+        gameFlow.announceRound();
+        gameFlow.userTurn++;
+        gameFlow.announceDraw()
     }));
 
     const displayBoardChoice = () => {
@@ -60,7 +62,8 @@ const displayController = (() => {
             gameFlow.resetTurn(),
             gameFlow.roundAnnounce.textContent = "Player X's Turn",
             displayBoardChoice(),
-            showWinner.textContent = ""
+            showWinner.textContent = "",
+            gameFlow.userTurn = 1;
         });
 
     let announceWinner = (gameWinner) => {
@@ -75,7 +78,8 @@ const displayController = (() => {
             displayBoardChoice,
             boardSquare,
             announceWinner,
-            displayWinner
+            displayWinner,
+            showWinner
         }
     })
 
@@ -92,6 +96,7 @@ const gameFlow = (() => {
         if (gameOutcome(boardPosition)) {
             displayController.announceWinner(getPlayerChoice());
             gameOver = true;
+            return
         }
         userTurn ++;
     };
@@ -106,9 +111,17 @@ const gameFlow = (() => {
             roundAnnounce.textContent = "Player X's Turn";
         } else {
             roundAnnounce.textContent = "Player O's Turn"
-        }
+        };
     }
     announceRound()
+
+    const announceDraw = () => {
+        if (userTurn === 10) {
+            gameOver = true;
+            displayController.showWinner.textContent = "It's a draw!";
+            return
+        };
+    }
 
     const resetTurn = () => {
         userTurn = 1;
@@ -150,6 +163,8 @@ const gameFlow = (() => {
         gameOutcome,
         roundAnnounce,
         stopGame,
+        announceDraw,
+        userTurn
     }
 
 })();
