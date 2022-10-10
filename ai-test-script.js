@@ -101,7 +101,7 @@ function Players(choice) {
      };
      
      const getPlayerChoice = () => {
-         return userTurn % 2 === 1 ? playerX.getChoice() : playerO.getChoice();
+        return playerX.getChoice()
      };
  
      let roundAnnounce = document.getElementById('round-announce');
@@ -162,3 +162,31 @@ function Players(choice) {
      }
  
  })();
+
+ function mousePressed() {
+    if (gameFlow.getPlayerChoice() == "X") {
+        let i = Math.floor(mouseY / w);
+        let j = Math.floor(mouseX / h);
+
+        if (gameBoard.ticTacToeBoard[i][j] == "") {
+            gameBoard.ticTacToeBoard[i][j] = human;
+            currentPlayer = ai;
+            randomMove();
+        }
+    }
+ }
+
+ function randomMove() {
+    let available = [];
+    for (let i = 0; i < 3; i++) {
+        for (let j = 0; j < 3; j++) {
+            if (gameBoard.ticTacToeBoard[i][j]) {
+                available.push({i, j});
+            }
+        }
+    }
+    let move = random(available);
+    gameBoard.ticTacToeBoard[move.i][move.j] = ai;
+    currentPlayer = "X";
+ }
+ 
