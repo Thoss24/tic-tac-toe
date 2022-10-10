@@ -1,0 +1,122 @@
+html {
+    min-height: 100vh;
+}
+
+body {
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
+}
+
+*, *::after, *::before {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+/* header content area */
+header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 10vh;
+}
+
+header > h1 {
+    text-decoration: underline;
+}
+
+/* main content area */
+main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+}
+
+#round-announce {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    font-size: 30px;
+}
+
+#reset-button {
+    display: flex;
+    align-items: center;
+    padding: 8px;
+    font-size: 20px;
+    border-radius: 15px;
+    border: none;
+    background: white;
+    cursor: pointer;
+}
+
+#reset-button:hover {
+    background-color: lightgray;
+}
+
+#board-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    width: 450px;
+    height: 450px;
+}
+
+.board-square {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 150px;
+    height: 150px;
+    border: 3px solid black;
+    font-size: 50px;
+    cursor: pointer;
+}
+
+.board-square:nth-child(1) {
+    border-top: none;
+    border-left: none;
+}
+
+.board-square:nth-child(2) {
+    border-top: none;
+}
+
+.board-square:nth-child(3) {
+    border-top: none;
+    border-right: none;
+}
+
+.board-square:nth-child(4) {
+    border-left: none;
+}
+
+.board-square:nth-child(6) {
+    border-right: none;
+}
+
+.board-square:nth-child(7) {
+    border-left: none;
+    border-bottom: none;
+}
+
+.board-square:nth-child(8) {
+    border-bottom: none;
+}
+
+.board-square:nth-child(9) {
+    border-bottom: none;
+    border-right: none;
+}
+
+/* announce winner section */
+#announce-winner {
+    display: flex;
+    font-size: 30px;
+    justify-content: center;
+    align-items: center;
+    padding-top: 40px;
+}
+
+
